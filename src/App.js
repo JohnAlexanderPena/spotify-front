@@ -1,24 +1,33 @@
 import React, { useState, useEffect } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import SpotifyWebApi from "spotify-web-api-js";
+import { useDispatch } from "react-redux";
+
+import Navigate from "./PlayerNavigation/Navigate";
 
 const spotify = new SpotifyWebApi();
 
 function App() {
-  const [nowPlaying, setNowPlaying] = useState({ name: "none", image: "" });
-  const [loggedIn, setLoggedIn] = useState("");
+  const dispatch = useDispatch();
+  const [nowPlaying, setNowPlaying] = useState({
+    name: "none",
+    image: "",
+    artist: "",
+  });
   const [params, setParams] = useState();
 
   const getNowPlaying = () => {
     spotify.getMyCurrentPlaybackState().then((response) => {
+      console.log(response);
       if (response) {
         setNowPlaying({
-          name: response.item.album.name,
-          image: response.image,
+          name: response.item.name,
+          artist: response.item.artists[0].name,
+          image: response.item.album.images[0],
         });
+        dispatch({ type: "SET_USER", userInfo: response.device });
       } else {
-        setNowPlaying({ name: "Error Getting Information", image: "" });
+        setNowPlaying({ name: "Nothing Currently Playing", image: "" });
       }
     });
   };
@@ -40,7 +49,7 @@ function App() {
   }, [setParams]);
 
   return (
-    <div className="App">
+    <div>
       {params ? (
         ""
       ) : (
@@ -48,11 +57,11 @@ function App() {
           <button>Login With Spotify</button>
         </a>
       )}
-      <div>Now Playing: {nowPlaying.name}</div>
-      <div>
-        <img src={nowPlaying.image} style={{ width: 100 }} />
-      </div>
-      <button onClick={() => getNowPlaying()}>Check Now Playing</button>
+      <Navigate
+        nowPlaying={nowPlaying}
+        getNowPlaying={getNowPlaying}
+        params={params}
+      />
     </div>
   );
 }
