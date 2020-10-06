@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./App.css";
 import SpotifyWebApi from "spotify-web-api-js";
 import { useDispatch } from "react-redux";
@@ -16,9 +16,12 @@ function App() {
   });
   const [params, setParams] = useState();
 
-  const getNowPlaying = () => {
+  // const getNowPlaying = () => {
+
+  // };
+
+  const getNowPlaying = useCallback(() => {
     spotify.getMyCurrentPlaybackState().then((response) => {
-      console.log(response);
       if (response) {
         setNowPlaying({
           name: response.item.name,
@@ -30,7 +33,7 @@ function App() {
         setNowPlaying({ name: "Nothing Currently Playing", image: "" });
       }
     });
-  };
+  }, [dispatch]);
 
   useEffect(() => {
     var hashParams = {};
@@ -45,8 +48,9 @@ function App() {
       setParams(hashParams);
       spotify.setAccessToken(hashParams.access_token);
     }
+    getNowPlaying();
     return setParams(hashParams);
-  }, [setParams]);
+  }, [setParams, getNowPlaying]);
 
   return (
     <div>
