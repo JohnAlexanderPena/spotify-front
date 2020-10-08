@@ -4,6 +4,8 @@ import SpotifyWebApi from "spotify-web-api-js";
 import { useDispatch } from "react-redux";
 
 import Navigate from "./PlayerNavigation/Navigate";
+import Sidebar from "react-sidebar";
+import MainSidebar from "./Sidebar/Sidebar";
 
 const spotify = new SpotifyWebApi();
 
@@ -61,6 +63,7 @@ function App() {
           <button>Login With Spotify</button>
         </a>
       )}
+      <MainSidebar />
       <Navigate
         nowPlaying={nowPlaying}
         getNowPlaying={getNowPlaying}

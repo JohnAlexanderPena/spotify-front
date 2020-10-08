@@ -2,11 +2,12 @@
   background-color: rgb(36, 36, 36);
   font-size: 16px;
   color: rgb(255, 255, 255);
-  border-top: 1px solid #e7e7e7;
+  border-top: 1px solid rgb(36, 36, 36);
   text-align: center;
   padding: 20px;
   position: fixed;
   left: 0;
+  z-index: 9999;
   bottom: 0;
   height: 100px;
   width: 100%;

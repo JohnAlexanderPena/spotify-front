@@ -52,8 +52,8 @@ const Navigate = ({ nowPlaying, getNowPlaying, params }) => {
   return (
     <Container fluid className="main-footer">
       <Row className="justify-content">
-        <Col xs={6} md={1}>
-          <div style={{ width: "200px", textOverflow: "hidden" }}>
+        <Col style={{ overflow: "scroll", textAlign: "center" }} xs={6} md={1}>
+          <div style={{ width: "200px", overflow: "scroll" }}>
             {nowPlaying.name}
           </div>
           {nowPlaying.artist}
