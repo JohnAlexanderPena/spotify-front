@@ -1,8 +1,19 @@
+@keyframes slide {
+  from {
+    background-position-x: 0;
+  }
+  to {
+    background-position-x: -100%;
+  }
+}
+
 .sidebar-links {
   justify-content: center;
-  color: #ffffff;
+  font-weight: bold;
+  cursor: pointer;
+  color: rgb(104, 104, 105);
 }
 
 .sidebar-links > div {
-  padding-top: 20px;
+  padding-top: 10px;
 }

@@ -2,9 +2,8 @@ import React, { useState, useEffect, useCallback } from "react";
 import "./App.css";
 import SpotifyWebApi from "spotify-web-api-js";
 import { useDispatch } from "react-redux";
-
+import axios from "axios";
 import Navigate from "./PlayerNavigation/Navigate";
-import Sidebar from "react-sidebar";
 import MainSidebar from "./Sidebar/Sidebar";
 
 const spotify = new SpotifyWebApi();
@@ -22,20 +21,39 @@ function App() {
 
   // };
 
-  const getNowPlaying = useCallback(() => {
-    spotify.getMyCurrentPlaybackState().then((response) => {
-      if (response) {
-        setNowPlaying({
-          name: response.item.name,
-          artist: response.item.artists[0].name,
-          image: response.item.album.images[0],
-        });
-        dispatch({ type: "SET_USER", userInfo: response.device });
-      } else {
-        setNowPlaying({ name: "Nothing Currently Playing", image: "" });
-      }
-    });
-  }, [dispatch]);
+  const getDeviceInfo = async (token) => {
+    const response = await axios.request({
+      method: "POST",
+      url: "http://localhost:8888/player/currentDevicePlaying",
+      headers: {
+        token: token,
+      },
+    }); // }
+    const device = response.data.deviceInfo.filter(
+      (device) => device.is_active === true
+    );
+    console.log(device);
+    dispatch({ type: "SET_DEVICE", device: device });
+  };
+
+  const getNowPlaying = useCallback(
+    async (token) => {
+      spotify.getMyCurrentPlaybackState().then((response) => {
+        console.log("Getting Song Info");
+        if (response.item !== null) {
+          setNowPlaying({
+            name: response.item.name,
+            artist: response.item.artists[0].name,
+            image: response.item.album.images[0],
+          });
+          dispatch({ type: "SET_USER", userInfo: response.device });
+        } else {
+          setNowPlaying({ name: "Nothing Currently Playing", image: "" });
+        }
+      });
+    },
+    [dispatch]
+  );
 
   useEffect(() => {
     var hashParams = {};
@@ -48,11 +66,13 @@ function App() {
     }
     if (hashParams.access_token) {
       setParams(hashParams);
+      getDeviceInfo(hashParams.access_token);
       spotify.setAccessToken(hashParams.access_token);
     }
-    getNowPlaying();
+    getNowPlaying(hashParams.access_token);
+    // getDeviceInfo(hashParams.access_token);
     return setParams(hashParams);
-  }, [setParams, getNowPlaying]);
+  }, [setParams]);
 
   return (
     <div>

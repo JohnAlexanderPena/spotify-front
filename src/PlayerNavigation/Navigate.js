@@ -4,11 +4,15 @@ import pauseButton from "../assets/pause-button.svg";
 import playButton from "./../assets/play-button.svg";
 import nextButton from "./../assets/nextButton.svg";
 import backButton from "./../assets/backButton.svg";
+import sound from "./../assets/sound.svg";
 import { Container, Row, Col } from "react-bootstrap";
+import { useSelector } from "react-redux";
 import "./Navigate.scss";
 
 const Navigate = ({ nowPlaying, getNowPlaying, params }) => {
   const [paused, setPaused] = useState(nowPlaying.name ? false : true);
+
+  const device = useSelector((state) => state.deviceInfo.device);
 
   const pauseSong = async () => {
     await axios.request({
@@ -50,15 +54,24 @@ const Navigate = ({ nowPlaying, getNowPlaying, params }) => {
   });
 
   return (
-    <Container fluid className="main-footer">
+    <Container fluid style={{ maxWidth: "100%" }} className="main-footer">
       <Row className="justify-content">
-        <Col style={{ overflow: "scroll", textAlign: "center" }} xs={6} md={1}>
-          <div style={{ width: "200px", overflow: "scroll" }}>
-            {nowPlaying.name}
-          </div>
-          {nowPlaying.artist}
+        <Col
+          // md="auto"
+          xs={6}
+          md={1}
+          style={{
+            overflow: "scroll",
+            textAlign: "center",
+            paddingTop: "1%",
+            paddingBottom: "1%",
+          }}
+          // xs={6}
+        >
+          <div className="song-name">{nowPlaying.name}</div>
+          <div className="song-name">{nowPlaying.artist}</div>
         </Col>
-        <Col style={{ textAlign: "center" }}>
+        <Col style={{ textAlign: "center", paddingTop: "1%" }}>
           <img
             style={{ paddingRight: "15px" }}
             onClick={previous}
@@ -76,6 +89,19 @@ const Navigate = ({ nowPlaying, getNowPlaying, params }) => {
             src={nextButton}
             alt="Play Next"
           />
+        </Col>
+      </Row>
+      <Row
+        className="device-bar"
+        style={{
+          backgroundColor: "rgb(18,175,83",
+        }}
+      >
+        <Col style={{ textAlign: "end" }} xs={2} md={10}>
+          <img src={sound} alt="device playing" />
+        </Col>
+        <Col xs={10} md={2}>
+          Listening on {device && device[0].name}
         </Col>
       </Row>
     </Container>
