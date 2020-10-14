@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import pauseButton from "../assets/pause-button.svg";
 import playButton from "./../assets/play-button.svg";
+import favorite from "./../assets/favorite-heart.svg";
 import nextButton from "./../assets/nextButton.svg";
 import backButton from "./../assets/backButton.svg";
 import sound from "./../assets/sound.svg";
@@ -11,6 +12,8 @@ import "./Navigate.scss";
 
 const Navigate = ({ nowPlaying, getNowPlaying, params }) => {
   const [paused, setPaused] = useState(nowPlaying.name ? false : true);
+  const [songName, startSongName] = useState(false);
+  const [albumName, startAlbumName] = useState(false);
 
   const device = useSelector((state) => state.deviceInfo.device);
 
@@ -54,24 +57,28 @@ const Navigate = ({ nowPlaying, getNowPlaying, params }) => {
   });
 
   return (
-    <Container fluid style={{ maxWidth: "100%" }} className="main-footer">
-      <Row className="justify-content">
-        <Col
-          // md="auto"
-          xs={6}
-          md={1}
-          style={{
-            overflow: "scroll",
-            textAlign: "center",
-            paddingTop: "1%",
-            paddingBottom: "1%",
-          }}
-          // xs={6}
-        >
-          <div className="song-name">{nowPlaying.name}</div>
-          <div className="song-name">{nowPlaying.artist}</div>
+    <Container style={{ maxWidth: "100%" }} className="main-footer">
+      <Row className="justify-content main-navbar-info">
+        <Col xs={6} md={2}>
+          <Row>
+            <Col md={6}>
+              <div className={songName ? "marquee" : "song-name"}>
+                <div onMouseEnter={() => startSongName(!songName)}>
+                  {nowPlaying.name}
+                </div>
+              </div>
+            </Col>
+            <Col>
+              <img src={favorite} alt="favorite" />
+            </Col>
+          </Row>
+          <div className={albumName ? "marquee" : "song-name"}>
+            <div onMouseEnter={() => startAlbumName(!albumName)}>
+              {nowPlaying.artist}
+            </div>
+          </div>
         </Col>
-        <Col style={{ textAlign: "center", paddingTop: "1%" }}>
+        <Col style={{ textAlign: "center", alignSelf: "center" }}>
           <img
             style={{ paddingRight: "15px" }}
             onClick={previous}
@@ -97,10 +104,21 @@ const Navigate = ({ nowPlaying, getNowPlaying, params }) => {
           backgroundColor: "rgb(18,175,83",
         }}
       >
-        <Col style={{ textAlign: "end" }} xs={2} md={10}>
-          <img src={sound} alt="device playing" />
+        <Col
+          style={{
+            textAlign: "end",
+            backgroundColor: "rgb(18,175,83",
+          }}
+          xs={2}
+          md={9}
+        >
+          <img
+            style={{ paddingRight: "20px" }}
+            src={sound}
+            alt="device playing"
+          />
         </Col>
-        <Col xs={10} md={2}>
+        <Col className="wrapper" xs={6} md={2}>
           Listening on {device && device[0].name}
         </Col>
       </Row>

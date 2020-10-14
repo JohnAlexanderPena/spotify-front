@@ -3,11 +3,12 @@ import Sidebar from "react-sidebar";
 import home from "../assets/home.svg";
 import browse from "../assets/browse.svg";
 import radio from "../assets/radio.svg";
+import axios from "axios";
 
-import { Col, Row } from "react-bootstrap";
+import { Col, Row, Button } from "react-bootstrap";
 import "./Sidebar.scss";
 
-const MainSidebar = () => {
+const MainSidebar = ({ getNewToken }) => {
   //   const [sidebarOpen, setSideBarOpen] = useState(true);
 
   return (
@@ -16,6 +17,7 @@ const MainSidebar = () => {
         sidebar={
           <div style={{ paddingTop: " 30%" }} className="container">
             <Row className="sidebar-links">
+              <Button onClick={getNewToken}>Refresh Token</Button>
               <Col md={3}>
                 <img src={home} alt="home" />
               </Col>

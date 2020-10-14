@@ -21,6 +21,21 @@ function App() {
 
   // };
 
+  const getNewToken = async () => {
+    const response = await axios.request({
+      method: "GET",
+      url: "http://localhost:8888/refresh_token",
+      headers: {
+        token: params.refresh_token,
+      },
+    });
+    if (response.status === 200) {
+      params.access_token = response.access_token;
+    } else {
+      console.log("check Token");
+    }
+  };
+
   const getDeviceInfo = async (token) => {
     const response = await axios.request({
       method: "POST",
@@ -29,11 +44,15 @@ function App() {
         token: token,
       },
     }); // }
-    const device = response.data.deviceInfo.filter(
-      (device) => device.is_active === true
-    );
-    console.log(device);
-    dispatch({ type: "SET_DEVICE", device: device });
+    console.log(response);
+    if (response.data.status !== 200) {
+      window.location.replace("http://localhost:8888");
+    } else {
+      const device = response.data.deviceInfo.filter(
+        (device) => device.is_active === true
+      );
+      dispatch({ type: "SET_DEVICE", device: device });
+    }
   };
 
   const getNowPlaying = useCallback(
@@ -60,7 +79,6 @@ function App() {
     var e,
       r = /([^&;=]+)=?([^&;]*)/g,
       q = window.location.hash.substring(1);
-    console.log(q);
     while ((e = r.exec(q))) {
       hashParams[e[1]] = decodeURIComponent(e[2]);
     }
@@ -68,6 +86,8 @@ function App() {
       setParams(hashParams);
       getDeviceInfo(hashParams.access_token);
       spotify.setAccessToken(hashParams.access_token);
+    } else {
+      console.log("oooo");
     }
     getNowPlaying(hashParams.access_token);
     // getDeviceInfo(hashParams.access_token);
@@ -83,7 +103,7 @@ function App() {
           <button>Login With Spotify</button>
         </a>
       )}
-      <MainSidebar />
+      <MainSidebar getNewToken={getNewToken} />
       <Navigate
         nowPlaying={nowPlaying}
         getNowPlaying={getNowPlaying}
