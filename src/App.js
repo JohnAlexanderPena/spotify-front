@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import axios from "axios";
 import Navigate from "./PlayerNavigation/Navigate";
 import MainSidebar from "./Sidebar/Sidebar";
+import NewSidebar from "./NewSidebar/NewSidebar";
 
 const spotify = new SpotifyWebApi();
 
@@ -44,7 +45,6 @@ function App() {
         token: token,
       },
     }); // }
-    console.log(response);
     if (response.data.status !== 200) {
       window.location.replace("http://localhost:8888");
     } else {
@@ -59,7 +59,7 @@ function App() {
     async (token) => {
       spotify.getMyCurrentPlaybackState().then((response) => {
         console.log("Getting Song Info");
-        if (response.item !== null) {
+        if (response !== "") {
           setNowPlaying({
             name: response.item.name,
             artist: response.item.artists[0].name,
@@ -95,7 +95,7 @@ function App() {
   }, [setParams]);
 
   return (
-    <div>
+    <div className="home-page">
       {params ? (
         ""
       ) : (
@@ -103,7 +103,8 @@ function App() {
           <button>Login With Spotify</button>
         </a>
       )}
-      <MainSidebar getNewToken={getNewToken} />
+      {/* <MainSidebar getNewToken={getNewToken} /> */}
+      <NewSidebar />
       <Navigate
         nowPlaying={nowPlaying}
         getNowPlaying={getNowPlaying}

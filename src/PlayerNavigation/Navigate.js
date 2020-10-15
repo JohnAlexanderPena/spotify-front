@@ -15,6 +15,8 @@ const Navigate = ({ nowPlaying, getNowPlaying, params }) => {
   const [songName, startSongName] = useState(false);
   const [albumName, startAlbumName] = useState(false);
 
+  console.log(nowPlaying);
+
   const device = useSelector((state) => state.deviceInfo.device);
 
   const pauseSong = async () => {
@@ -61,14 +63,14 @@ const Navigate = ({ nowPlaying, getNowPlaying, params }) => {
       <Row className="justify-content main-navbar-info">
         <Col xs={6} md={2}>
           <Row>
-            <Col md={6}>
+            <Col xs={6} md={6}>
               <div className={songName ? "marquee" : "song-name"}>
                 <div onMouseEnter={() => startSongName(!songName)}>
                   {nowPlaying.name}
                 </div>
               </div>
             </Col>
-            <Col>
+            <Col xs={3}>
               <img src={favorite} alt="favorite" />
             </Col>
           </Row>
@@ -98,30 +100,34 @@ const Navigate = ({ nowPlaying, getNowPlaying, params }) => {
           />
         </Col>
       </Row>
-      <Row
-        className="device-bar"
-        style={{
-          backgroundColor: "rgb(18,175,83",
-        }}
-      >
-        <Col
+      {device && device.length > 0 ? (
+        <Row
+          className="device-bar"
           style={{
-            textAlign: "end",
             backgroundColor: "rgb(18,175,83",
           }}
-          xs={2}
-          md={9}
         >
-          <img
-            style={{ paddingRight: "20px" }}
-            src={sound}
-            alt="device playing"
-          />
-        </Col>
-        <Col className="wrapper" xs={6} md={2}>
-          Listening on {device && device[0].name}
-        </Col>
-      </Row>
+          <Col
+            style={{
+              textAlign: "end",
+              backgroundColor: "rgb(18,175,83",
+            }}
+            xs={2}
+            md={9}
+          >
+            <img
+              style={{ paddingRight: "20px" }}
+              src={sound}
+              alt="device playing"
+            />
+          </Col>
+          <Col className="wrapper" xs={6} md={2}>
+            Listening on {device && device.length > 0 ? device[0].name : ""}
+          </Col>
+        </Row>
+      ) : (
+        ""
+      )}
     </Container>
   );
 };
