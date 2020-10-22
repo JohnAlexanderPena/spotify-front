@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Connection from "../utils/Connection";
-import { getBrowse } from "../driveManagementFunctions";
+import { getBrowse } from "./BrowseHooks";
 
 const MainBrowse = () => {
   const getCategories = getBrowse();
