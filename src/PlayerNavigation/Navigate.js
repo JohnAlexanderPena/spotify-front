@@ -6,8 +6,9 @@ import favorite from "./../assets/favorite-heart.svg";
 import nextButton from "./../assets/nextButton.svg";
 import backButton from "./../assets/backButton.svg";
 import sound from "./../assets/sound.svg";
+import { useDispatch, useSelector } from "react-redux";
 import { Container, Row, Col } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import Connection from "../utils/Connection";
 import "./Navigate.scss";
 
 const Navigate = ({ nowPlaying, getNowPlaying, params }) => {
@@ -15,9 +16,26 @@ const Navigate = ({ nowPlaying, getNowPlaying, params }) => {
   const [songName, startSongName] = useState(false);
   const [albumName, startAlbumName] = useState(false);
 
-  console.log(nowPlaying);
-
   const device = useSelector((state) => state.deviceInfo.device);
+  const dispatch = useDispatch();
+
+  const getCats = async () => {
+    const t = sessionStorage.getItem("access_token");
+    const conn = new Connection(t);
+    console.log(t);
+    const response = await conn.get("/browse/getCategories");
+    if (response.status.code === 200) {
+      dispatch({ type: "SET_BROWSE", cats: response.data.data });
+
+      return response;
+    } else {
+      console.error(
+        `There was an error trying to delete the file/s:`,
+        response
+      );
+      return response;
+    }
+  };
 
   const pauseSong = async () => {
     await axios.request({
@@ -29,7 +47,6 @@ const Navigate = ({ nowPlaying, getNowPlaying, params }) => {
       },
     });
     setPaused(!paused);
-    // }
   };
 
   const next = async () => {
@@ -55,7 +72,7 @@ const Navigate = ({ nowPlaying, getNowPlaying, params }) => {
   };
 
   useEffect(() => {
-    // getNowPlaying();
+    getCats();
   });
 
   return (
@@ -80,7 +97,7 @@ const Navigate = ({ nowPlaying, getNowPlaying, params }) => {
             </div>
           </div>
         </Col>
-        <Col style={{ textAlign: "center", alignSelf: "center" }}>
+        <Col md={8} style={{ textAlign: "center", alignSelf: "center" }}>
           <img
             style={{ paddingRight: "15px" }}
             onClick={previous}
