@@ -29,10 +29,7 @@ const Navigate = ({ nowPlaying, getNowPlaying, params }) => {
 
       return response;
     } else {
-      console.error(
-        `There was an error trying to delete the file/s:`,
-        response
-      );
+      console.error(`There was an error trying to retrieve info`, response);
       return response;
     }
   };
