@@ -4,7 +4,6 @@ import SpotifyWebApi from "spotify-web-api-js";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import Navigate from "./PlayerNavigation/Navigate";
-import MainSidebar from "./Sidebar/Sidebar";
 import NewSidebar from "./NewSidebar/NewSidebar";
 
 const spotify = new SpotifyWebApi();
@@ -58,7 +57,6 @@ function App() {
   const getNowPlaying = useCallback(
     async (token) => {
       spotify.getMyCurrentPlaybackState().then((response) => {
-        console.log("Getting Song Info");
         if (response !== "") {
           setNowPlaying({
             name: response.item.name,
@@ -84,6 +82,7 @@ function App() {
     }
     if (hashParams.access_token) {
       setParams(hashParams);
+      sessionStorage.setItem("access_token", hashParams.access_token);
       getDeviceInfo(hashParams.access_token);
       spotify.setAccessToken(hashParams.access_token);
     } else {
@@ -103,8 +102,7 @@ function App() {
           <button>Login With Spotify</button>
         </a>
       )}
-      {/* <MainSidebar getNewToken={getNewToken} /> */}
-      <NewSidebar />
+      <NewSidebar getNewToken={getNewToken} />
       <Navigate
         nowPlaying={nowPlaying}
         getNowPlaying={getNowPlaying}
