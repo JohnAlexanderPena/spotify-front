@@ -4,6 +4,7 @@ import Connection from "../utils/connect";
 
 const dispatch = useDispatch();
 export const getCats = async () => {
+  console.log("calling");
   const t = sessionStorage.getItem("access_token");
   const conn = new Connection(t);
   console.log(t);

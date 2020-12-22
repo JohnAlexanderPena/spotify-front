@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import pauseButton from "../assets/pause-button.svg";
-import playButton from "./../assets/play-button.svg";
-import favorite from "./../assets/favorite-heart.svg";
-import nextButton from "./../assets/nextButton.svg";
-import backButton from "./../assets/backButton.svg";
-import sound from "./../assets/sound.svg";
+import pauseButton from "../../assets/pause-button.svg";
+import playButton from "../../assets/play-button.svg";
+import favorite from "../../assets/favorite-heart.svg";
+import nextButton from "../../assets/nextButton.svg";
+import backButton from "../../assets/backButton.svg";
+import sound from "../../assets/sound.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Row, Col } from "react-bootstrap";
-import Connection from "../utils/Connection";
+import Connection from "../../utils/Connection";
 import "./Navigate.scss";
 
 const Navigate = ({ nowPlaying, getNowPlaying, params }) => {
@@ -18,6 +18,7 @@ const Navigate = ({ nowPlaying, getNowPlaying, params }) => {
 
   const device = useSelector((state) => state.deviceInfo.device);
   const dispatch = useDispatch();
+  const t = sessionStorage.getItem("access_token");
 
   const getCats = async () => {
     const t = sessionStorage.getItem("access_token");
@@ -39,7 +40,7 @@ const Navigate = ({ nowPlaying, getNowPlaying, params }) => {
       method: "POST",
       url: `http://localhost:8888/player/${paused ? "play" : "pause"}`,
       headers: {
-        token: params.access_token,
+        token: params.access_token || t,
         data: paused,
       },
     });
@@ -51,7 +52,7 @@ const Navigate = ({ nowPlaying, getNowPlaying, params }) => {
       method: "POST",
       url: `http://localhost:8888/player/next`,
       headers: {
-        token: params.access_token,
+        token: params.access_token || t,
       },
     });
     getNowPlaying();
@@ -62,7 +63,7 @@ const Navigate = ({ nowPlaying, getNowPlaying, params }) => {
       method: "POST",
       url: `http://localhost:8888/player/back`,
       headers: {
-        token: params.access_token,
+        token: params.access_token || t,
       },
     });
     getNowPlaying();

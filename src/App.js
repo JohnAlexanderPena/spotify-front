@@ -3,8 +3,12 @@ import "./App.css";
 import SpotifyWebApi from "spotify-web-api-js";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import Navigate from "./PlayerNavigation/Navigate";
-import NewSidebar from "./NewSidebar/NewSidebar";
+import Navigate from "./Components/PlayerNavigation/Navigate";
+import NewSidebar from "./Components/NewSidebar/NewSidebar";
+// import HomePage from "./Components/Home/HomePage";
+import { useHistory } from "react-router-dom";
+
+import Routes from "./Routes";
 
 const spotify = new SpotifyWebApi();
 
@@ -20,6 +24,8 @@ function App() {
   // const getNowPlaying = () => {
 
   // };
+
+  const history = useHistory();
 
   const getNewToken = async () => {
     const response = await axios.request({
@@ -65,7 +71,7 @@ function App() {
           });
           dispatch({ type: "SET_USER", userInfo: response.device });
         } else {
-          setNowPlaying({ name: "Nothing Currently Playing", image: "" });
+          setNowPlaying({ name: "", image: "" });
         }
       });
     },
@@ -86,15 +92,24 @@ function App() {
       getDeviceInfo(hashParams.access_token);
       spotify.setAccessToken(hashParams.access_token);
     } else {
-      console.log("oooo");
+      getDeviceInfo(sessionStorage.getItem("access_token"));
+      spotify.setAccessToken(sessionStorage.getItem("access_token"));
     }
+
+    // setInterval(async () => {
+    //   await getNowPlaying(hashParams.access_token);
+    // }, 1000);
+
     getNowPlaying(hashParams.access_token);
+
+    // setInterval(, 3000);
+
     // getDeviceInfo(hashParams.access_token);
     return setParams(hashParams);
   }, [setParams]);
 
   return (
-    <div className="home-page">
+    <div style={{ display: "flex" }} className="home-page">
       {params ? (
         ""
       ) : (
@@ -103,11 +118,13 @@ function App() {
         </a>
       )}
       <NewSidebar getNewToken={getNewToken} />
+      <Routes />
       <Navigate
         nowPlaying={nowPlaying}
         getNowPlaying={getNowPlaying}
         params={params}
       />
+      {/* <HomePage /> */}
     </div>
   );
 }
