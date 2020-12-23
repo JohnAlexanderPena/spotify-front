@@ -26,7 +26,7 @@ const Navigate = ({ nowPlaying, getNowPlaying, params }) => {
     const response = await conn.get("/browse/getCategories");
     if (response.status.code === 200) {
       dispatch({ type: "SET_BROWSE", cats: response.data.data });
-      console.log(response);
+      // console.log(response);
       return response;
     } else {
       console.error(`There was an error trying to retrieve info`, response);

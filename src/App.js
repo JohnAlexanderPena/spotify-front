@@ -80,6 +80,7 @@ function App() {
   );
 
   useEffect(() => {
+    console.log("setting something");
     var hashParams = {};
     var e,
       r = /([^&;=]+)=?([^&;]*)/g,

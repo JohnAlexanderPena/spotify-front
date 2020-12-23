@@ -1,9 +1,10 @@
 .sidebar-links {
+  position: fixed;
   justify-content: center;
   font-weight: bold;
   color: rgb(104, 104, 105);
   background-color: rgb(23, 23, 23);
-  height: 100vh;
+  height: 100%;
   // color: red;
 }
 

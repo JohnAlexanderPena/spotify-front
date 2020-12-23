@@ -9,6 +9,12 @@ const Routes = (props) => {
       <Route exact path="/home">
         <HomePage />
       </Route>
+      <Route exact path="/browse">
+        <HomePage />
+      </Route>
+      <Route exact path="/radio">
+        <HomePage />
+      </Route>
     </Switch>
   );
 };

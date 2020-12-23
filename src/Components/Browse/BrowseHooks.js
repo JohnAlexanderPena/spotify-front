@@ -4,11 +4,9 @@ import Connection from "../utils/connect";
 
 const dispatch = useDispatch();
 export const getCats = async () => {
-  console.log("calling");
   const t = sessionStorage.getItem("access_token");
   const conn = new Connection(t);
-  console.log(t);
-  const response = await conn.get("/browse/getCategories");
+=  const response = await conn.get("/browse/getCategories");
   if (response) {
     dispatch({ type: "SET_BROWSE", cats: response.data });
     return response;

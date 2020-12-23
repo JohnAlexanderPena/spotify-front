@@ -1,6 +1,17 @@
 .main-page {
   color: #ffffff;
+  width: -webkit-fill-available;
   top: 0;
-  align-items: center;
-  background: linear-gradient(rgb(49, 49, 49), rgb(29, 29, 29) 30%);
+  //   align-items: center;
+  background: linear-gradient(rgb(49, 49, 49), rgb(29, 29, 29) 20%);
+}
+
+.homepage-container {
+  padding: 5% 0% 0% 15%;
+  //   padding-left: 0px;
+}
+
+.new-releases {
+  padding-top: 2rem;
+  margin-bottom: 15%;
 }
