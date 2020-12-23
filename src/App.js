@@ -9,6 +9,7 @@ import NewSidebar from "./Components/NewSidebar/NewSidebar";
 import { useHistory } from "react-router-dom";
 
 import Routes from "./Routes";
+import HomePage from "./Components/Home/HomePage";
 
 const spotify = new SpotifyWebApi();
 
@@ -104,12 +105,11 @@ function App() {
 
     // setInterval(, 3000);
 
-    // getDeviceInfo(hashParams.access_token);
     return setParams(hashParams);
   }, [setParams]);
 
   return (
-    <div style={{ display: "flex" }} className="home-page">
+    <div style={{ display: "flex" }} className="home-page-container">
       {params ? (
         ""
       ) : (
@@ -117,6 +117,7 @@ function App() {
           <button>Login With Spotify</button>
         </a>
       )}
+      {/* <div className="home-page-container"> */}
       <NewSidebar getNewToken={getNewToken} />
       <Routes />
       <Navigate
@@ -124,6 +125,7 @@ function App() {
         getNowPlaying={getNowPlaying}
         params={params}
       />
+      {/* </div> */}
       {/* <HomePage /> */}
     </div>
   );

@@ -5,24 +5,36 @@ import "./Homepage.scss";
 const HomePage = () => {
   const history = useHistory();
 
-  const getTopArtist = async () => {
+  //   const getTopArtist = async () => {
+  //     const t = sessionStorage.getItem("access_token");
+  //     const conn = new Connection(t);
+  //     const response = await conn.get("/browse/getTopArtists");
+  //     if (response) {
+  //       console.log(response);
+  //       return response;
+  //     } else {
+  //       console.error(`There was an error trying to retrieve Data:`, response);
+  //       return response;
+  //     }
+  //   };
+
+  const getRecommendations = async () => {
     const t = sessionStorage.getItem("access_token");
     const conn = new Connection(t);
-    const response = await conn.get("/browse/getTopArtists");
+    const response = await conn.get("/browse/recommendations");
     if (response) {
-      console.log(response);
-      //   dispatch({ type: "SET_BROWSE", cats: response.data });
+      //   console.log(response);
       return response;
     } else {
-      console.error(`There was an error trying to retrieve Data:`, response);
+      //   console.error(`There was an error trying to retrieve Data:`, response);
       return response;
     }
   };
 
   useEffect(() => {
-    getTopArtist();
+    getRecommendations();
   });
-  return <div className="home-page-container">Here is some content</div>;
+  return <div className="main-page"></div>;
 };
 
 export default HomePage;

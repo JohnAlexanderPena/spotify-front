@@ -1,8 +1,17 @@
 export const setBrowse = (state = {}, action) => {
-  const { categories } = action;
+  const { cats } = action;
+  console.log(cats);
   return {
     ...state,
     isActive: true,
-    categories,
+    catergories: cats,
+  };
+};
+
+export const setPage = (state = {}, action) => {
+  console.log(action);
+  return {
+    ...state,
+    currentPage: action.payload,
   };
 };
