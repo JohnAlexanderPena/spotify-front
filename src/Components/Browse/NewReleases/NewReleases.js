@@ -63,7 +63,8 @@ const HomePage = () => {
           style={{
             paddingLeft: "1rem",
             paddingRight: "1rem",
-            // margin: "auto 0",
+
+            marginBottom: "5%",
           }}
         >
           {newReleases &&
