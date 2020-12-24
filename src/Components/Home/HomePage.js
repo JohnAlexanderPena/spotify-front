@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { getBrowse } from "./BrowseHooks";
 import "./MainHome.scss";
 
-const MainBrowse = () => {
+const HomePage = () => {
   // const getCategories = getBrowse();
 
   const getDrives = async () => {};
@@ -14,4 +14,4 @@ const MainBrowse = () => {
   return <div className="main-home"></div>;
 };
 
-export default MainBrowse;
+export default HomePage;

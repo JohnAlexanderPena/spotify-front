@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Container, Row } from "react-bootstrap";
-import Connection from "../../utils/Connection";
+import Connection from "../../../utils/Connection";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import "./NewReleases.scss";
-import CardView from "../../Reuseables/Cards/CardView";
-import CarouselSlide from "./CarouselSlides/CarouselSlide";
+import CardView from "../../../Reuseables/Cards/CardView";
+import CarouselSlide from "../CarouselSlides/CarouselSlide";
 
 const HomePage = () => {
   const history = useHistory();
@@ -49,11 +49,6 @@ const HomePage = () => {
 
   return (
     <div className="main-page">
-      {/* <Container
-        fluid
-        className="browse-container"
-        style={{ overflow: "auto" }}
-      > */}
       <h1
         style={{
           fontFamily: "Helvetica, sans-serif",
@@ -61,16 +56,9 @@ const HomePage = () => {
           paddingLeft: "1.5rem",
         }}
       >
-        {page}
+        {/* {page || "Browse"} */}
       </h1>
       <div className="new-releases">
-        <h3
-          style={{
-            paddingLeft: "1.5rem",
-          }}
-        >
-          New Releases
-        </h3>
         <Row
           style={{
             paddingLeft: "1rem",
@@ -82,10 +70,8 @@ const HomePage = () => {
             newReleases.map((item) => {
               return <CardView item={item} />;
             })}
-          {/* <CarouselSlide items={newReleases} /> */}
         </Row>
       </div>
-      {/* </Container> */}
     </div>
   );
 };

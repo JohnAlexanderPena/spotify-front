@@ -10,6 +10,7 @@ import { useHistory } from "react-router-dom";
 
 import Routes from "./Routes";
 import HomePage from "./Components/Home/HomePage";
+import SearchBar from "./Components/SearchBar/SearchBar";
 
 const spotify = new SpotifyWebApi();
 
@@ -93,11 +94,11 @@ function App() {
       sessionStorage.setItem("access_token", hashParams.access_token);
       getDeviceInfo(hashParams.access_token);
       spotify.setAccessToken(hashParams.access_token);
-      history.push("/home");
+      history.push("/browse");
     } else {
       getDeviceInfo(sessionStorage.getItem("access_token"));
       spotify.setAccessToken(sessionStorage.getItem("access_token"));
-      history.push("/home");
+      history.push("/browse");
     }
 
     setInterval(async () => {
@@ -112,7 +113,8 @@ function App() {
   }, [setParams]);
 
   return (
-    <div style={{ display: "flex" }} className="home-page-container">
+    // <div style={{ display: "flex" }} className="home-page-container">
+    <div className="home-page-container">
       {params ? (
         ""
       ) : (
@@ -122,6 +124,7 @@ function App() {
       )}
       {/* <div className="home-page-container"> */}
       <NewSidebar getNewToken={getNewToken} />
+      <SearchBar />
       <Routes />
       <Navigate
         nowPlaying={nowPlaying}

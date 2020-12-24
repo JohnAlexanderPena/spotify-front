@@ -38,5 +38,6 @@
 } */
 .home-page-container {
   /* background-image: linear-gradient(red, yellow); */
-  background: linear-gradient(rgb(49, 49, 49), rgb(29, 29, 29) 30%);
+  height: 300vh;
+  background: linear-gradient(rgb(49, 49, 49), rgb(29, 29, 29) 10%);
 }

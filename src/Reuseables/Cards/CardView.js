@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, Button } from "react-bootstrap";
-import "../../Components/Browse/NewReleases.scss";
+import "../../Components/Browse/NewReleases/NewReleases.scss";
 
 const Cards = ({ item }) => {
   return (
@@ -8,8 +8,8 @@ const Cards = ({ item }) => {
       style={{
         width: "20%",
         // width: "16rem",
-        border: "rgb(29, 29, 29)",
-        padding: "20px 0px 20px 20px",
+        border: "none",
+        padding: "20px 20px 20px 20px",
         background: "rgb(29, 29, 29)",
       }}
     >
