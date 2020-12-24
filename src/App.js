@@ -93,16 +93,18 @@ function App() {
       sessionStorage.setItem("access_token", hashParams.access_token);
       getDeviceInfo(hashParams.access_token);
       spotify.setAccessToken(hashParams.access_token);
+      history.push("/home");
     } else {
       getDeviceInfo(sessionStorage.getItem("access_token"));
       spotify.setAccessToken(sessionStorage.getItem("access_token"));
+      history.push("/home");
     }
 
-    // setInterval(async () => {
-    //   await getNowPlaying(hashParams.access_token);
-    // }, 1000);
+    setInterval(async () => {
+      await getNowPlaying(hashParams.access_token);
+    }, 1500);
 
-    getNowPlaying(hashParams.access_token);
+    // getNowPlaying(hashParams.access_token);
 
     // setInterval(, 3000);
 

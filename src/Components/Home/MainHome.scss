@@ -1,17 +1,18 @@
-.main-page {
+.main-home {
   color: #ffffff;
   width: -webkit-fill-available;
   top: 0;
+  height: 100vh;
   //   align-items: center;
   background: linear-gradient(rgb(49, 49, 49), rgb(29, 29, 29) 20%);
 }
 
 .homepage-container {
-  padding: 5% 0% 0% 15%;
+  padding: 5% 0% 0% 10%;
   //   padding-left: 0px;
 }
 
 .new-releases {
   padding-top: 2rem;
-  margin-bottom: 15%;
+  // margin-bottom: 15%;
 }

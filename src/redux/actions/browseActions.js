@@ -3,7 +3,7 @@ export const setBrowse = (state = {}, action) => {
   return {
     ...state,
     isActive: true,
-    categories: cats.categories,
+    categories: cats?.categories,
   };
 };
 

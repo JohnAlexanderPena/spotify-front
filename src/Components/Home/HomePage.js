@@ -1,85 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Container, Row } from "react-bootstrap";
-import Connection from "../../utils/Connection";
-import { useHistory } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import "./Homepage.scss";
-import CardView from "../../Reuseables/Cards/CardView";
+// import Connection from "../utils/Connection";
+import { getBrowse } from "./BrowseHooks";
+import "./MainHome.scss";
 
-const HomePage = () => {
-  const history = useHistory();
+const MainBrowse = () => {
+  // const getCategories = getBrowse();
 
-  const page = useSelector((state) => state.browseInfo.currentPage);
-  const categories = useSelector((state) => state.browseInfo.categories?.items);
-  const [newReleases, setNewReleases] = useState(null);
-
-  const dispatch = useDispatch();
-
-  //   const getTopArtist = async () => {
-  //     const t = sessionStorage.getItem("access_token");
-  //     const conn = new Connection(t);
-  //     const response = await conn.get("/browse/getTopArtists");
-  //     if (response) {
-  //       console.log(response);
-  //       return response;
-  //     } else {
-  //       console.error(`There was an error trying to retrieve Data:`, response);
-  //       return response;
-  //     }
-  //   };
-
-  const getRecommendations = async () => {
-    const t = sessionStorage.getItem("access_token");
-    const conn = new Connection(t);
-    const response = await conn.get("/browse/recommendations");
-    if (response) {
-      console.log(response);
-      setNewReleases(response.data.data.albums.items);
-      return response;
-    } else {
-      //   console.error(`There was an error trying to retrieve Data:`, response);
-      return response;
-    }
-  };
+  const getDrives = async () => {};
 
   useEffect(() => {
-    getRecommendations();
-  }, [setNewReleases]);
-
-  return (
-    <div className="main-page" style={{ overflow: "auto" }}>
-      <Container
-        fluid
-        className="homepage-container"
-        style={{ overflow: "auto" }}
-      >
-        <h1 style={{ fontFamily: "Helvetica, sans-serif", fontWeight: "bold" }}>
-          {page}
-        </h1>
-        <div className="new-releases">
-          <h3
-            style={{
-              paddingLeft: "1rem",
-            }}
-          >
-            New Releases
-          </h3>
-          <Row
-            style={{
-              justifyContent: "space-evenly",
-              width: "100%",
-              overflow: "auto",
-            }}
-          >
-            {newReleases &&
-              newReleases.map((item) => {
-                return <CardView item={item} />;
-              })}
-          </Row>
-        </div>
-      </Container>
-    </div>
-  );
+    // getCategories();
+  });
+  return <div className="main-home"></div>;
 };
 
-export default HomePage;
+export default MainBrowse;
