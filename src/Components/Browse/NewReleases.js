@@ -48,44 +48,44 @@ const HomePage = () => {
   }, [setNewReleases]);
 
   return (
-    <div className="main-page" style={{ overflow: "auto" }}>
-      <Container
+    <div className="main-page">
+      {/* <Container
         fluid
-        className="homepage-container"
+        className="browse-container"
         style={{ overflow: "auto" }}
+      > */}
+      <h1
+        style={{
+          fontFamily: "Helvetica, sans-serif",
+          fontWeight: "bold",
+          paddingLeft: "1.5rem",
+        }}
       >
-        <h1
+        {page}
+      </h1>
+      <div className="new-releases">
+        <h3
           style={{
-            fontFamily: "Helvetica, sans-serif",
-            fontWeight: "bold",
-            paddingLeft: "2rem",
+            paddingLeft: "1.5rem",
           }}
         >
-          {page}
-        </h1>
-        <div className="new-releases">
-          <h3
-            style={{
-              paddingLeft: "2rem",
-            }}
-          >
-            New Releases
-          </h3>
-          <Row
-            style={{
-              paddingLeft: "1rem",
-              paddingRight: "1rem",
-              // margin: "auto 0",
-            }}
-          >
-            {newReleases &&
-              newReleases.map((item) => {
-                return <CardView item={item} />;
-              })}
-            {/* <CarouselSlide items={newReleases} /> */}
-          </Row>
-        </div>
-      </Container>
+          New Releases
+        </h3>
+        <Row
+          style={{
+            paddingLeft: "1rem",
+            paddingRight: "1rem",
+            // margin: "auto 0",
+          }}
+        >
+          {newReleases &&
+            newReleases.map((item) => {
+              return <CardView item={item} />;
+            })}
+          {/* <CarouselSlide items={newReleases} /> */}
+        </Row>
+      </div>
+      {/* </Container> */}
     </div>
   );
 };

@@ -2,13 +2,15 @@
   color: #ffffff;
   width: -webkit-fill-available;
   top: 0;
-  height: 100vh;
+  height: 100%;
+  padding: 5% 10% 0% 12%;
+
   //   align-items: center;
-  background: linear-gradient(rgb(49, 49, 49), rgb(29, 29, 29) 20%);
+  background: linear-gradient(rgb(49, 49, 49), rgb(29, 29, 29) 10%);
 }
 
-.homepage-container {
-  padding: 5% 0% 0% 10%;
+.browse-container {
+  // padding: 0% 0% 0% 12%;
   //   padding-left: 0px;
 }
 
